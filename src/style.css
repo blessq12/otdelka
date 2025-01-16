@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-800 font-sans;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/30;
+  }
+
+  .btn-outline-white {
+    @apply border-2 border-white text-white hover:bg-white hover:text-primary;
+  }
+
+  .section {
+    @apply py-20;
+  }
+
+  .section-header {
+    @apply text-center max-w-3xl mx-auto mb-16;
+  }
+
+  .section-title {
+    @apply text-4xl font-bold mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-xl text-gray-600;
+  }
+
+  .form-group {
+    @apply space-y-1;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors;
+  }
+
+  .form-error {
+    @apply text-sm text-red-500;
+  }
+
+  .service-card {
+    @apply bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  .review-card {
+    @apply bg-white rounded-xl p-6 shadow-lg;
+  }
+
+  .map-container {
+    @apply relative h-[400px] rounded-xl overflow-hidden shadow-lg;
+  }
+
+  .map-attribution {
+    @apply absolute top-0 left-0 right-0 bg-white/80 backdrop-blur-sm text-xs text-center py-1 z-10;
+  }
+}
+
+.hero-section {
+  @apply relative py-32 overflow-hidden;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
