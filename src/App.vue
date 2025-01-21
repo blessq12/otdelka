@@ -29,6 +29,9 @@ export default {
       services,
       advantages,
       config,
+      query: 'default',
+      pageTitle: '',
+      pageSubtitle: '',
       isMenuOpen: false,
       form: {
         name: '',
@@ -50,8 +53,13 @@ export default {
     };
   },
   mounted() {
-    // toast.success('Привет, мир!')
-    // console.log(config)
+    // Получаем текущий URL
+    const currentUrl = window.location.href;
+    const url = new URL(currentUrl);
+    const queryParams = Object.fromEntries(url.searchParams.entries());
+    const myParam = queryParams.query;
+    this.query = myParam || 'default'; 
+    this.headerData(this.query);
   },
   methods: {
     toggleMenu() {
@@ -79,9 +87,29 @@ export default {
         .catch((error) => {
           toast.error(error.errors[0]);
         });
+    },
+    headerData(query) {
+      // Удаляем слеш в конце, если он есть
+      query = query.replace(/\/$/, '');
+
+      const headers = [
+        { title: 'Идеально ровные стены с профессиональной штукатуркой и шпатлевкой', subtitle: 'Качественная подготовка стен под покраску и обои. Гарантия на работы и соблюдение сроков!', query: 'shpaklevka' },
+        { title: 'Укладка плитки с безупречной точностью', subtitle: 'Полы и стены, которые прослужат годами. Профессиональный подход и индивидуальные решения!', query: 'ukladka-plitki' },
+        { title: 'Эффективная гидроизоляция для защиты вашего дома', subtitle: 'Надежная защита от влаги и сырости. Гарантируем долговечный результат!', query: 'gidroizolyatsiya' },
+        { title: 'Малярные работы: стиль и качество в каждом штрихе', subtitle: 'Идеально окрашенные стены и потолки. Работаем аккуратно и быстро!', query: 'malyarnye-raboty' },
+        { title: 'Быстрые и аккуратные демонтажные работы', subtitle: 'Удалим старые покрытия и конструкции без лишнего шума и пыли!', query: 'demonтаж' },
+        { title: 'Монтаж гипсокартона для идеальных форм и поверхностей', subtitle: 'Реализуем сложные конструкции и идеально ровные стены. Делаем под ключ!', query: 'montazh-gipsokartona' },
+        { title: 'Утепление дома – тепло и комфорт круглый год', subtitle: 'Современные материалы и технологии для надежной теплоизоляции!', query: 'uteplenie' },
+        { title: 'Декоративные элементы: стильный акцент в интерьере', subtitle: 'Создаем уникальный дизайн с лепниной, панелями и другими декоративными решениями!', query: 'dekorativnye-elementy' },
+        { title: 'Качественный ремонт для вашего дома', subtitle: 'Мы специализируемся на качественном ремонте и отделке помещений любой сложности. Наша команда профессионалов имеет более 10 лет опыта в сфере ремонтных работ.', query: 'default' },
+      ];
+      
+      const header = headers.find(header => header.query === query) || headers.find(header => header.query === 'default');
+      this.pageTitle = header.title;
+      this.pageSubtitle = header.subtitle;
     }
-  }
-};
+  },
+}
 </script>
 
 <template>
@@ -192,12 +220,11 @@ export default {
   <section class="hero-section">
     <div class="container relative">
       <div class="hero-content max-w-3xl">
-        <h1 class="text-4xl sm:text-6xl font-bold mb-6">
-          <span class="text-white">Качественный ремонт</span><br>
-          <span class="text-white">для вашего дома</span>
+        <h1 class="text-4xl sm:text-6xl font-bold mb-6 text-white">
+          {{ pageTitle }}
         </h1>
         <p class="text-xl text-gray-200 mb-8">
-          Мы специализируемся на качественном ремонте и отделке помещений любой сложности. Наша команда профессионалов имеет более 10 лет опыта в сфере ремонтных работ.
+          {{ pageSubtitle }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4">
           <a href="#cta" class="btn btn-primary">
